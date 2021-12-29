@@ -16,7 +16,7 @@ The JSON files (payments.zip)[https://github.com/ScudraServicos/data-engineer-co
 
 * Payment: The payment represents that a specific installment was paid.
 
-* Cohort: For the scope of this challenge, a cohort is the set of all clients that executed an origination in a given month. For example, the cohort of January is the set of all clients having an origination from 01 to 31 of January. (edited) 
+* Cohort: For the scope of this challenge, a cohort is the set of all clients that executed an origination in a given month. For example, the cohort of January is the set of all clients having an origination from 01 to 31 of January. 
 
 # Everything begins in an ETL
 
@@ -67,7 +67,7 @@ Given a cohort, after M months, the customer has an installment with more than D
 
 Given a cohort, in a period of M months of observation, the customer delayed any installment with more than D days. We call this rule ever-D-mob-M.  Where we replace M and D with the proper values and mob stands for months of observation. 
 
-* You will be given a set of origination and payment events for a period of 6 months. Your task is to find the percentage of bad payers for all possible cohorts that fill the rules:
+* You will be given a set of origination events for a period of 6 months along with related payment events available on [Data Sources](#data-sources). Your task is to find the percentage of bad payers for all possible cohorts that fill the rules:
   * over-30-mob-1
   * over-30-mob-3
   * ever-30-mob-3
@@ -75,7 +75,7 @@ Given a cohort, in a period of M months of observation, the customer delayed any
 Moreover, with the percentage, you must provide the list of bad payers along with the installments that fill each rule. Save it as a parquet file partitioned by bad_payer = (true or false)
 
 ## Requirements
-* Use the data prepare on [Everything begins in an ETL](#Everything_begin_in_an_ETL)
+* Use the data prepare on [Everything begins in an ETL](#everything-begins-in-an-etl)
 * Use Apache Spark 
 * Reliability is a really important thing, we can't lose data.
 * Scalability is one of the foundations, we're growing, to infinity and even further. (Our test in here will run with much more data)
@@ -93,13 +93,13 @@ After you create all these amazing things, you a Data Engineer can see a new big
 
 An orchestration system must provide an easy way to define tasks, which depends on whats, what can or cannot run again after failed, schedule the beginning and let us know when things are not working.
 
-The idea here is to use [Apache Airflor](https://airflow.apache.org/) to build all this.
+The idea here is to use [Apache Airflow](https://airflow.apache.org/) to build all this.
 
 ## Requirements
 
 * The platform should run the following tasks:
-  1) [Everything begin in an ETL](#Everything_begin_in_an_ETL)
-  2) [Spark](#Spark)
+  1) [Everything begins in an ETL](#everything-begins-in-an-etl)
+  2) [Spark](#spark)
 
 
 * Availability
