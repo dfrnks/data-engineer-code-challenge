@@ -1,5 +1,5 @@
-# data-engineer-code-challenge2
-Code challenge for Data Engineer
+# Data Engineer Code Challenge
+Code challenge for Data Engineer.
 
 UMe is a startup dedicated to helping the population of classes C, D, and E in our society to have simple access to fair credit, fast and without hidden fees. We offer credit directly at the point of sale of partner small and medium retailers, who use our product as a payment option. Using our credit platform the retailer can sell its products while we assume all the credit operations-related transactions. These operations are related to handling payments, controlling default rates, and collection. 
 
