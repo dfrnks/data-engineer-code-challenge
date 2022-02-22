@@ -35,25 +35,7 @@ With that being said, implement an ETL pipeline to process files and store them 
 ## Deliverable
 
 * Feel free to use any language and framework you prefer. 
-The only request is, the solution must be containerized in a docker image, everything ready to run. Run it should start reading the files and finish storing it as asked.
-
-# What about Governance and Privacy?
-
-This is an important subject as we can't leave our customer information available to the world. So we need to make sure everything is under control.
-
-## The Task
-
-How would store metadata and build a catalog to secure it? The solution needs to take some points into consideration: 
-  * Governance, who can access what
-  * Privacy, how to store it in a private way 
-
-## Deliverable
-
-* Tell us how would you implement it.
-  * You can sketch a solution with comments on frameworks and algorithms.
-  * You write a book about this solution.
-  * Feel free to find the best way to explain your ideas.
-  * Bonus: You can implement it on the ETL task.
+The only request is, the solution must be containerized in a docker image, everything ready to run. Run it should start reading the files and finish storing it as asked. Provide a readme explaining how to run it!
 
 # Spark
 
@@ -75,7 +57,7 @@ Given a cohort, in a period of M months of observation, the customer delayed any
 Moreover, with the percentage, you must provide the list of bad payers along with the installments that fill each rule. Save it as a parquet file partitioned by bad_payer = (true or false)
 
 ## Requirements
-* Use the data prepare on [Everything begins in an ETL](#everything-begins-in-an-etl)
+* Use the data provided (Bonus: use the data prepared on [Everything begins in an ETL](#everything-begins-in-an-etl))
 * Use Apache Spark 
 * Reliability is a really important thing, we can't lose data.
 * Scalability is one of the foundations, we're growing, to infinity and even further. (Our test in here will run with much more data)
@@ -83,29 +65,25 @@ Moreover, with the percentage, you must provide the list of bad payers along wit
 ## Deliverable
 
 * Feel free to use any language but do it with Apache Spark. 
-The only request is, the solution must be containerized in a docker image, everything ready to run. Run it should start reading the files and finish storing it as asked.
+The only request is, the solution must be containerized in a docker image, everything ready to run. Run it should start reading the files and finish storing it as asked. Provide a readme explaining how to run it!
 
-# Orchestration
+# What about Governance and Privacy?
 
-After you create all these amazing things, you a Data Engineer can see a new big problem, it's almost impossible to run everything manually all the time, so there is one last step before finishing the job. Let's automate it!
+This is an important subject as we can't leave our customer information available to the world. So we need to make sure everything is under control.
 
 ## The Task
 
-An orchestration system must provide an easy way to define tasks, which depends on whats, what can or cannot run again after failed, schedule the beginning and let us know when things are not working.
-
-The idea here is to use [Apache Airflow](https://airflow.apache.org/) to build all this.
-
-## Requirements
-
-* The platform should run the following tasks:
-  1) [Everything begins in an ETL](#everything-begins-in-an-etl)
-  2) [Spark](#spark)
-
-
-* Availability
-  1) It should not share resources with the database and task, if something crashes the rest needs to keep on running
+How would store metadata and build a catalog to secure it? The solution needs to take some points into consideration: 
+  * Governance, who can access what
+  * Privacy, how to store it in a private way 
 
 ## Deliverable
 
-* Feel free to use any language and framework you prefer. 
-The only request is, the solution must be containerized in a docker image, everything ready to run. Run it should start everything with this specific DAG ready to run.com
+* Tell us how would you implement it.
+  * You can sketch a solution with comments on frameworks and algorithms.
+  * Feel free to find the best way to explain your ideas.
+  * Bonus: You can implement it on the ETL task. Provide a readme explaining how to run it!
+
+
+# Happy Coding!
+## Remember to provide a readme for all the solutions!
