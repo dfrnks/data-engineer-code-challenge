@@ -1,0 +1,27 @@
+version: "3.9"
+services:
+  python:
+    build: .
+    links:
+      - db
+    depends_on:
+      - db
+#  backend:
+#    image: dfrnks/dockerfile-example-backend
+#    ports:
+#      - "5000:5000"
+#    depends_on:
+#      - db
+#      - redis
+  db:
+    image: postgres
+    volumes:
+      - ./.postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: password
+  adminer:
+    image: adminer
+    ports:
+      - 8090:8080
+    depends_on:
+      - db
