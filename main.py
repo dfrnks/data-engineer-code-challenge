@@ -9,8 +9,10 @@ from src import unzip_zip_files
 from src import concat_json_files
 from src import ingest_payments
 from src import ingest_originations
+from src import bad_payer
 
-logging.getLogger().setLevel(logging.DEBUG)
+
+logging.getLogger().setLevel(logging.INFO)
 
 INGEST_PATH = ".ingest-data"
 
@@ -52,6 +54,9 @@ def run():
     # e na REFINED no Postgres, no banco as tabelas sempre são reescritas
     ingest_payments(engine, f"{INGEST_PATH}/raw/payments.json", f"{INGEST_PATH}/trusted/payments")
     ingest_originations(engine, f"{INGEST_PATH}/raw/originations.json", f"{INGEST_PATH}/trusted/originations")
+
+    # Processa o PySpark salvando uma tabela no Postgres com a porcetagem e arquivos parquet com os pagamentos.
+    bad_payer(f"{INGEST_PATH}/trusted/bad_payer")
 
 
 if __name__ == '__main__':
