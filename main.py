@@ -1,7 +1,6 @@
-# Read json files
-
-# Put into a table into Postgres DB
 import os
+import logging
+
 from sqlalchemy import create_engine
 
 from sqlalchemy_utils import database_exists, create_database
@@ -11,6 +10,7 @@ from src import concat_json_files
 from src import ingest_payments
 from src import ingest_originations
 
+logging.getLogger().setLevel(logging.DEBUG)
 
 INGEST_PATH = ".ingest-data"
 

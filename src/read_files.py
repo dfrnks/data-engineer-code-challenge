@@ -1,10 +1,10 @@
-import zipfile
 import glob
 import shutil
+import zipfile
+import logging
+import pandas as pd
 
 from pathlib import Path
-
-import pandas as pd
 
 
 def unzip_zip_files(path: str, files: list) -> list:
@@ -14,6 +14,8 @@ def unzip_zip_files(path: str, files: list) -> list:
     :param files: The list of files to unzip
     :return:
     """
+
+    logging.info("Iniciando unzip files")
 
     unzip_path = Path(path) / '.temp'
     unzip_path.mkdir(parents=True, exist_ok=True)
@@ -37,14 +39,18 @@ def unzip_zip_files(path: str, files: list) -> list:
 
 
 def concat_json_files(parent_path, path):
+    logging.info(f"Iniciando a concatenção dos json files, path {path}")
+
     files = glob.glob(f"{parent_path}/.temp/{path}/*.json")
 
-    dfs = []  # an empty list to store the data frames
+    dfs = []
     for file in files:
-        data = pd.read_json(file, lines=True)  # read data frame from json file
-        dfs.append(data)  # append the data frame to the list
+        data = pd.read_json(file, lines=True)
+        dfs.append(data)
 
-    temp = pd.concat(dfs, ignore_index=True)  # concatenate all the data frames in the list
+    temp = pd.concat(dfs, ignore_index=True)
+
+    logging.info(f"Inserindo na raw")
 
     temp.to_json(f"{parent_path}/raw/{path}.json", orient="records", lines=True)
 

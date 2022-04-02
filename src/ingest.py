@@ -1,8 +1,9 @@
-import json
+import logging
 import pandas as pd
 
 
 def ingest_payments(engine, src, dst):
+    logging.info("Iniciando processo ingestão payments")
 
     df = pd.read_json(src, lines=True)
 
@@ -10,7 +11,11 @@ def ingest_payments(engine, src, dst):
     df['paymentId'] = df['paymentId'].astype(str)
     df['installmentId'] = df['installmentId'].astype(str)
 
+    logging.info("Inserindo na trusted")
+
     df.to_parquet(dst)
+
+    logging.info("Inserindo na refined")
 
     df.to_sql(
         'payments',
@@ -21,8 +26,11 @@ def ingest_payments(engine, src, dst):
         chunksize=50
     )
 
+    logging.info("Finalizando processo ingestão payments")
+
 
 def ingest_originations(engine, src, dst):
+    logging.info("Iniciando processo ingestão originations")
 
     df = pd.read_json(src, lines=True)
 
@@ -43,8 +51,11 @@ def ingest_originations(engine, src, dst):
     df['installmentId'] = df['installmentId'].astype(str)
     df['installmentValue'] = df['installmentValue'].astype(float)
 
+    logging.info("Inserindo na trusted")
+
     df.to_parquet(dst)
 
+    logging.info("Inserindo na refined")
     df.to_sql(
         'originations',
         con=engine,
@@ -53,3 +64,5 @@ def ingest_originations(engine, src, dst):
         method='multi',
         chunksize=50
     )
+
+    logging.info("Finalizando processo ingestão originations")

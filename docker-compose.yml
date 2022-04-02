@@ -1,4 +1,4 @@
-version: "3.9"
+version: "3.3"
 services:
   python:
     build: .
@@ -11,7 +11,7 @@ services:
     environment:
       POSTGRESQL_DATABASE: CODE_CHALLENGE
       POSTGRESQL_IP: db
-      POSTGRESQL_PORT: password
+      POSTGRESQL_PORT: 5432
       POSTGRESQL_USERNAME: postgres
       POSTGRESQL_PASSWORD: password
   db:
