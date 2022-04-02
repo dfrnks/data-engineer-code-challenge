@@ -38,7 +38,14 @@ def unzip_zip_files(path: str, files: list) -> list:
     return return_files
 
 
-def concat_json_files(parent_path, path):
+def concat_json_files(parent_path: str, path: str) -> None:
+    """
+    Concatena varios arquivos json em um unico e salva na RAW
+
+    :param parent_path:
+    :param path:
+    :return:
+    """
     logging.info(f"Iniciando a concatenção dos json files, path {path}")
 
     files = glob.glob(f"{parent_path}/.temp/{path}/*.json")

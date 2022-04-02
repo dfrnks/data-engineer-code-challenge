@@ -28,23 +28,30 @@ engine = create_engine('postgresql://{}:{}@{}:{}/{}'.format(
     POSTGRESQL_DATABASE
 ))
 
+# Criando database se caso não exista ainda.
 if not database_exists(engine.url):
     create_database(engine.url)
 
+# Lista dos arquivos para processar, poderia vir via argumentos de comando
+files = [
+    'originations.zip',
+    'payments.zip',
+]
+
 
 def run():
-    files = [
-        'originations.zip',
-        'payments.zip',
-    ]
-
+    # Unzipa os arquivos primeiro numa pasta temporaria
     unzip_files = unzip_zip_files(INGEST_PATH, files)
 
+    # Concatena todos os arquivos json e salva na RAW para ocupar menos espaço,
+    # No caso eu criei um arquivo unico, mas o correto seria particionar por tamanho ou por data
     for f in unzip_files:
         concat_json_files(INGEST_PATH, f)
 
-    ingest_payments(engine, f"{INGEST_PATH}/raw/payments.json", f"{INGEST_PATH}/trusted/payments.parquet")
-    ingest_originations(engine, f"{INGEST_PATH}/raw/originations.json", f"{INGEST_PATH}/trusted/originations.parquet")
+    # Processa os arquivos json e salva na camada TRUSTED num parquet particionado por ano e mes
+    # e na REFINED no Postgres, no banco as tabelas sempre são reescritas
+    ingest_payments(engine, f"{INGEST_PATH}/raw/payments.json", f"{INGEST_PATH}/trusted/payments")
+    ingest_originations(engine, f"{INGEST_PATH}/raw/originations.json", f"{INGEST_PATH}/trusted/originations")
 
 
 if __name__ == '__main__':

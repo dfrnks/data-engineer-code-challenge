@@ -1,8 +1,17 @@
 import logging
 import pandas as pd
 
+from pathlib import Path
 
-def ingest_payments(engine, src, dst):
+
+def ingest_payments(engine, src, dst) -> None:
+    """
+    Processa o arquivo payments e gera um parquet para salvar na trusted e salva no banco.
+    :param engine:
+    :param src:
+    :param dst:
+    :return:
+    """
     logging.info("Iniciando processo ingestão payments")
 
     df = pd.read_json(src, lines=True)
@@ -13,7 +22,15 @@ def ingest_payments(engine, src, dst):
 
     logging.info("Inserindo na trusted")
 
-    df.to_parquet(dst)
+    df['year'] = df['paymentDate'].dt.year
+    df['month'] = df['paymentDate'].dt.month
+
+    trusted_path = Path(dst)
+    trusted_path.mkdir(parents=True, exist_ok=True)
+
+    df.to_parquet(dst, partition_cols=['year', 'month'])
+
+    df.drop(['year', 'month'], axis=1, inplace=True)
 
     logging.info("Inserindo na refined")
 
@@ -29,7 +46,14 @@ def ingest_payments(engine, src, dst):
     logging.info("Finalizando processo ingestão payments")
 
 
-def ingest_originations(engine, src, dst):
+def ingest_originations(engine, src, dst) -> None:
+    """
+    Processa o arquivo payments e gera um parquet para salvar na trusted e salva no banco.
+    :param engine:
+    :param src:
+    :param dst:
+    :return:
+    """
     logging.info("Iniciando processo ingestão originations")
 
     df = pd.read_json(src, lines=True)
@@ -53,9 +77,18 @@ def ingest_originations(engine, src, dst):
 
     logging.info("Inserindo na trusted")
 
-    df.to_parquet(dst)
+    df['year'] = df['registerDate'].dt.year
+    df['month'] = df['registerDate'].dt.month
+
+    trusted_path = Path(dst)
+    trusted_path.mkdir(parents=True, exist_ok=True)
+
+    df.to_parquet(dst, partition_cols=['year', 'month'])
+
+    df.drop(['year', 'month'], axis=1, inplace=True)
 
     logging.info("Inserindo na refined")
+
     df.to_sql(
         'originations',
         con=engine,
