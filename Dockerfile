@@ -10,9 +10,6 @@ COPY ./requirements.txt /app
 COPY ./main.py /app
 COPY ./src /app/src
 
-COPY originations.zip /app
-COPY payments.zip /app
-
 COPY postgresql-42.3.3.jar /app
 
 ADD https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh /app/wait-for-it.sh

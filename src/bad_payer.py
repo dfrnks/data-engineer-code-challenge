@@ -108,10 +108,10 @@ def bad_payer(dst):
 
     rules.select(
         '*',
-        col('count').alias('total'),
-        round((col('count') * 100) / df.where(col('bad_payer') == True).count(), 2).alias('perc')
-    ) \
-        .drop('count') \
+        round(
+            (col('count') * 100) / df.where(col('bad_payer') == True).count(), 2
+        ).alias('perc')
+    ).withColumnRenamed('count', 'total')\
         .write.format("jdbc") \
         .option("url", url) \
         .option("dbtable", "bad_payer_rules") \

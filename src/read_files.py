@@ -2,6 +2,8 @@ import glob
 import shutil
 import zipfile
 import logging
+import requests
+
 import pandas as pd
 
 from pathlib import Path
@@ -28,12 +30,16 @@ def unzip_zip_files(path: str, files: list) -> list:
 
     return_files = []
 
-    for f in files:
-        with zipfile.ZipFile(f) as file:
+    for filename in files:
+        r = requests.get(files[filename], allow_redirects=True)
+
+        open(raw_path / filename, 'wb').write(r.content)
+
+        with zipfile.ZipFile(raw_path / filename) as file:
 
             file.extractall(path=unzip_path)
 
-            return_files.append(f.replace('.zip', ''))
+            return_files.append(filename.replace('.zip', ''))
 
     return return_files
 

@@ -1,7 +1,8 @@
-pandas
-sqlalchemy
+pandas~=1.4.2
+sqlalchemy~=1.4.34
+pyspark~=3.2.1
+requests
 sqlalchemy_utils
 psycopg2
 pyarrow
 fastparquet
-pyspark
